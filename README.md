@@ -51,8 +51,8 @@ npm install
 Create a `.env.local` file with:
 ```env
 NEXTAUTH_SECRET=your-super-secret-key-for-nextauth
-NEXTAUTH_URL=http://192.168.4.5:3001
-NEXT_PUBLIC_API_URL=http://192.168.4.5:8000
+NEXTAUTH_URL=http://localhost:3001
+NEXT_PUBLIC_API_URL=http://localhost:8000
 NEXT_PUBLIC_SUPABASE_URL=your-supabase-url
 NEXT_PUBLIC_SUPABASE_ANON_KEY=your-supabase-anon-key
 SUPABASE_SERVICE_ROLE_KEY=your-supabase-service-role-key
@@ -70,7 +70,7 @@ npm run build
 npm start
 ```
 
-The application will be available at `http://192.168.4.5:3001`
+The application will be available at `http://localhost:3001`
 
 ## API Integration
 
@@ -136,8 +136,8 @@ CREATE TABLE users (
 
 ## Environment
 
-- **Frontend**: http://192.168.4.5:3001
-- **Backend API**: http://192.168.4.5:8000
+- **Frontend**: http://localhost:3001
+- **Backend API**: http://localhost:8000
 - **Database**: PostgreSQL (Supabase)
 
 ## Contributing
