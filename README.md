@@ -1,36 +1,153 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# AI Research Assistant Frontend
+
+A modern Next.js frontend for the AI Research Assistant platform featuring advanced Magic UI components, user authentication, and real-time report generation.
+
+## Features
+
+- **🎨 Modern UI**: Beautiful interface with Magic UI components including:
+  - Animated sparkles text
+  - Blur fade animations
+  - Scroll progress indicators
+  - Rainbow buttons and shimmer effects
+  - Dynamic word rotation
+
+- **🔐 Authentication**: Secure user authentication with NextAuth.js and Supabase PostgreSQL
+
+- **📊 Real-time Reports**: Live progress tracking for AI-generated research reports
+
+- **📱 Responsive Design**: Works perfectly on desktop and mobile devices
+
+## Tech Stack
+
+- **Framework**: Next.js 15.3.5 with TypeScript
+- **Styling**: Tailwind CSS 4
+- **Authentication**: NextAuth.js with Supabase PostgreSQL
+- **Database**: PostgreSQL (Supabase)
+- **Animation**: Framer Motion (motion)
+- **UI Components**: Magic UI (custom components)
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
+- Node.js 18+ 
+- npm or yarn
+- PostgreSQL database (Supabase)
+
+### Installation
+
+1. Clone the repository:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone <repository-url>
+cd frontend
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Install dependencies:
+```bash
+npm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. Set up environment variables:
+Create a `.env.local` file with:
+```env
+NEXTAUTH_SECRET=your-super-secret-key-for-nextauth
+NEXTAUTH_URL=http://192.168.4.5:3001
+NEXT_PUBLIC_API_URL=http://192.168.4.5:8000
+NEXT_PUBLIC_SUPABASE_URL=your-supabase-url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your-supabase-anon-key
+SUPABASE_SERVICE_ROLE_KEY=your-supabase-service-role-key
+DATABASE_URL=your-postgresql-connection-string
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+4. Run the development server:
+```bash
+npm run dev
+```
 
-## Learn More
+5. Build for production:
+```bash
+npm run build
+npm start
+```
 
-To learn more about Next.js, take a look at the following resources:
+The application will be available at `http://192.168.4.5:3001`
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## API Integration
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+The frontend connects to the AI Research Assistant API server running on port 8000. Make sure the backend API server is running before using the application.
 
-## Deploy on Vercel
+### API Endpoints Used:
+- `POST /api/research/generate` - Generate new research reports
+- `GET /api/research/status/{report_id}` - Get report generation status
+- `GET /api/research/reports` - List all reports
+- `GET /health` - API health check
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Project Structure
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```
+src/
+├── app/                    # Next.js app router
+│   ├── (auth)/            # Authentication pages
+│   ├── api/               # API routes
+│   ├── dashboard/         # Main dashboard
+│   └── page.tsx           # Landing page
+├── components/            # Reusable components
+│   └── ui/                # Magic UI components
+└── lib/                   # Utility libraries
+    ├── api.ts             # API client
+    ├── db.ts              # Database connection
+    ├── supabase.ts        # Supabase client
+    └── utils.ts           # Utility functions
+```
+
+## Magic UI Components
+
+This project includes several custom Magic UI components:
+
+- **BlurFade**: Smooth blur and fade animations
+- **ScrollProgress**: Page scroll progress indicator
+- **WordRotate**: Rotating text animation
+- **RainbowButton**: Gradient rainbow button effects
+- **SparklesText**: Animated sparkles text effect
+- **ShimmerButton**: Shimmering button animations
+- **GridPattern**: Animated background patterns
+
+## Database Schema
+
+The application uses PostgreSQL with the following user table:
+
+```sql
+CREATE TABLE users (
+  id SERIAL PRIMARY KEY,
+  email VARCHAR(255) UNIQUE NOT NULL,
+  name VARCHAR(255) NOT NULL,
+  password_hash VARCHAR(255) NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+```
+
+## Development
+
+- **Development**: `npm run dev` (port 3001)
+- **Production Build**: `npm run build`
+- **Production Start**: `npm start`
+- **Linting**: `npm run lint`
+
+## Environment
+
+- **Frontend**: http://192.168.4.5:3001
+- **Backend API**: http://192.168.4.5:8000
+- **Database**: PostgreSQL (Supabase)
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Run tests and linting
+5. Submit a pull request
+
+## License
+
+This project is part of the AI Research Assistant platform.

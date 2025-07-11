@@ -1,36 +1,58 @@
 import NextAuth from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
+import bcrypt from 'bcryptjs';
+import pool from '@/lib/db';
 
-// In-memory user store for demonstration
-const users = [
-  { id: '1', name: 'Test User', email: 'test@example.com', password: 'password' },
-];
-
-export const authOptions = {
+const authOptions = {
   providers: [
     CredentialsProvider({
       name: 'Credentials',
       credentials: {
         email: { label: "Email", type: "email" },
-        password: {  label: "Password", type: "password" }
+        password: { label: "Password", type: "password" }
       },
       async authorize(credentials) {
-        if (!credentials) {
+        if (!credentials?.email || !credentials?.password) {
           return null;
         }
-        const user = users.find(u => u.email === credentials.email && u.password === credentials.password);
 
-        if (user) {
-          // Return user object without the password
-          return { id: user.id, name: user.name, email: user.email };
-        } else {
+        try {
+          // Get user from database
+          const result = await pool.query(
+            'SELECT id, email, name, password_hash FROM users WHERE email = $1',
+            [credentials.email]
+          );
+
+          if (result.rows.length === 0) {
+            console.log('User not found');
+            return null;
+          }
+
+          const user = result.rows[0];
+
+          // Verify password
+          const isValid = await bcrypt.compare(credentials.password, user.password_hash);
+          
+          if (!isValid) {
+            console.log('Invalid password');
+            return null;
+          }
+
+          // Return user object for session
+          return {
+            id: user.id.toString(),
+            email: user.email,
+            name: user.name,
+          };
+        } catch (error) {
+          console.error('Auth error:', error);
           return null;
         }
       }
     })
   ],
   session: {
-    strategy: 'jwt',
+    strategy: 'jwt' as const,
   },
   pages: {
     signIn: '/login',
