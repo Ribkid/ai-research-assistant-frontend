@@ -1,0 +1,207 @@
+@import "tailwindcss";
+
+:root {
+  --background: #0a0a0f;
+  --foreground: #e0dce9;
+  --primary: #8a7b9d;
+  --primary-foreground: #ffffff;
+  --secondary: #1e1a38;
+  --secondary-foreground: #e0dce9;
+  --accent: #b1a9c9;
+  --accent-foreground: #0a0a0f;
+  --destructive: #f03d55;
+  --destructive-foreground: #ffffff;
+  --border: #2a2640;
+  --input: #1e1a38;
+  --ring: #8a7b9d;
+  
+  /* Purple gradient colors */
+  --purple-50: #f4f2ff;
+  --purple-100: #e0dce9;
+  --purple-200: #c1bad4;
+  --purple-300: #b1a9c9;
+  --purple-400: #9286b4;
+  --purple-500: #8a7b9d;
+  --purple-600: #645394;
+  --purple-700: #504c81;
+  --purple-800: #3f2c96;
+  --purple-900: #1e1a38;
+  
+  /* Accent colors */
+  --neon-purple: #a855f7;
+  --neon-pink: #ec4899;
+  --neon-blue: #3b82f6;
+  
+  /* Animation colors */
+  --color-1: #8a7b9d;
+  --color-2: #b1a9c9;
+  --color-3: #645394;
+  --color-4: #a855f7;
+  --color-5: #ec4899;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --animate-rainbow: rainbow 2s linear infinite;
+  --animate-shimmer-slide: shimmer-slide 1s ease-in-out infinite alternate;
+  --animate-spin-around: spin-around 1s linear infinite;
+  --animate-rippling: rippling 0.6s ease-out;
+  --animate-glow: glow 2s ease-in-out infinite alternate;
+  --animate-float: float 6s ease-in-out infinite;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Glow effect */
+@keyframes glow {
+  from {
+    box-shadow: 0 0 10px var(--neon-purple), 0 0 20px var(--neon-purple), 0 0 30px var(--neon-purple);
+  }
+  to {
+    box-shadow: 0 0 20px var(--neon-purple), 0 0 30px var(--neon-purple), 0 0 40px var(--neon-purple);
+  }
+}
+
+/* Float animation */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+/* Gradient animation */
+@keyframes gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Purple glow text */
+.glow-text {
+  text-shadow: 0 0 10px rgba(168, 85, 247, 0.5),
+               0 0 20px rgba(168, 85, 247, 0.3),
+               0 0 30px rgba(168, 85, 247, 0.2);
+}
+
+/* Gradient backgrounds */
+.gradient-purple {
+  background: linear-gradient(135deg, var(--purple-900) 0%, var(--purple-600) 50%, var(--purple-400) 100%);
+}
+
+.gradient-animated {
+  background: linear-gradient(-45deg, #1e1a38, #645394, #8a7b9d, #b1a9c9);
+  background-size: 400% 400%;
+  animation: gradient-shift 15s ease infinite;
+}
+
+/* Glass morphism effect */
+.glass {
+  background: rgba(30, 26, 56, 0.3);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Neon button styles */
+.neon-button {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.neon-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(168, 85, 247, 0.4), transparent);
+  transition: left 0.5s;
+}
+
+.neon-button:hover::before {
+  left: 100%;
+}
+
+/* Updated animations */
+@keyframes rainbow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes shimmer-slide {
+  to {
+    transform: translate(calc(100cqw - 100%), 0);
+  }
+}
+
+@keyframes spin-around {
+  0% {
+    transform: translateZ(0) rotate(0);
+  }
+  15%,
+  35% {
+    transform: translateZ(0) rotate(90deg);
+  }
+  65%,
+  85% {
+    transform: translateZ(0) rotate(270deg);
+  }
+  100% {
+    transform: translateZ(0) rotate(360deg);
+  }
+}
+
+@keyframes rippling {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+/* Pulse animation for CTAs */
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
